@@ -1,4 +1,6 @@
-<?php
+<?php if (!defined('SYSTEM_ROOT')) {
+	die('Insufficient Permissions');
+}
 
 /**
  * KM_Mailer is a SMTP Class for PHP, Version 1.5
