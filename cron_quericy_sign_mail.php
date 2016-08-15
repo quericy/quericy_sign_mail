@@ -8,6 +8,13 @@ function cron_quericy_sign_mail()
     if ($last_run_date >= date('Y-m-d')) {
         return option::get('quericy_sign_mail_log');
     }
+    //get start_time
+    $quericy_sign_mail_send_hour = option::get('quericy_sign_mail_send_hour');
+    if (!empty($quericy_sign_mail_send_hour) && $quericy_sign_mail_send_hour > date('H') && $quericy_sign_mail_send_hour > 0 && $quericy_sign_mail_send_hour < 24) {
+        //no start
+        return option::get('quericy_sign_mail_log');
+    }
+
     $log = date("Y-m-d H:i:s") . ' 签到邮件通知开始执行 ' . PHP_EOL;
     //get setting
     $last_do_id = option::get('quericy_sign_mail_run_id');

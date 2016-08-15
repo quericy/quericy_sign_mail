@@ -11,6 +11,7 @@ switch ($_GET['act']) {
         break;
     case 'store'://保存设置
         option::set('quericy_sign_mail_default_open', $_POST['quericy_sign_mail_default_open']);
+        option::set('quericy_sign_mail_send_hour', intval($_POST['quericy_sign_mail_send_hour']));
         option::set('quericy_sign_mail_name', $_POST['quericy_sign_mail_name']);
         option::set('quericy_sign_mail_host', $_POST['quericy_sign_mail_host']);
         option::set('quericy_sign_mail_port', $_POST['quericy_sign_mail_port']);
@@ -52,6 +53,14 @@ switch ($_GET['act']) {
                                name="quericy_sign_mail_default_open"
                                value="1" <?php echo option::get('quericy_sign_mail_default_open') ? 'checked' : ''; ?>>
                         所有用户默认开启邮件通知
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">每天</span>
+                        <input class="form-control" type="number" placeholder="0点~23点,超过范围无效"
+                               name="quericy_sign_mail_send_hour"
+                               value="<?php echo option::get('quericy_sign_mail_send_hour') ?>">
+                        <span class="input-group-addon">点发送邮件</span>
                     </div>
                     <br>
                 </td>
