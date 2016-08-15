@@ -21,12 +21,12 @@ function quericy_sign_mail_setting()
 
     ?>
     <tr>
-    <td>签到每日邮件通知</td>
+    <td>每日签到邮件报告</td>
     <td>
         <input type="radio" name="quericy_sign_mail_enable"
-               value="on" <?php echo $is_open ? 'checked' : ''; ?> > 开启签到每日邮件通知<br/>
+               value="on" <?php echo $is_open ? 'checked' : ''; ?> > 开启每日签到邮件报告<br/>
         <input type="radio" name="quericy_sign_mail_enable"
-               value="off" <?php echo $is_open ? '' : 'checked'; ?> > 关闭签到每日邮件通知
+               value="off" <?php echo $is_open ? '' : 'checked'; ?> > 关闭每日签到邮件报告
     </td>
     <?php
 }
