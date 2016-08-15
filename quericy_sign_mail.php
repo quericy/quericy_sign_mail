@@ -18,6 +18,8 @@ function quericy_sign_mail_setting()
     } else {
         $is_open = option::uget('quericy_sign_mail_enable') == 'on' ? true : false;
     }
+    global $i;
+    $quericy_sign_mail_report_url = SYSTEM_URL . 'index.php?pub_plugin=quericy_sign_mail&username=' . $i['user']['name'] . '&token=' . md5(md5($i['user']['name'] . $i['user']['uid'] . date('Y-m-d')) . md5($i['user']['uid']));
 
     ?>
     <tr>
@@ -27,6 +29,12 @@ function quericy_sign_mail_setting()
                value="on" <?php echo $is_open ? 'checked' : ''; ?> > 开启每日签到邮件报告<br/>
         <input type="radio" name="quericy_sign_mail_enable"
                value="off" <?php echo $is_open ? '' : 'checked'; ?> > 关闭每日签到邮件报告
+    </td>
+    </tr>
+    <tr>
+    <td>每日签到邮件报告地址</td>
+    <td>
+        <a href="<?php echo $quericy_sign_mail_report_url; ?>" target="_blank">点击查看</a>（有效期至<span style="padding: 2px 4px;color: #c7254e;background-color: #f9f2f4;border-radius: 4px;"><?php echo date('Y-m-d 23:59:59');?></span>）
     </td>
     <?php
 }

@@ -97,8 +97,7 @@ switch ($_GET['act']) {
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon">加密方式</span>
-                        <select name="quericy_sign_mail_secure" class="form-control"
-                                onchange="if(this.value == 'none') { $('#smtp_auth').hide(); } else { $('#smtp_auth').show(); }">
+                        <select name="quericy_sign_mail_secure" class="form-control">
                             <option value="none"
                                 <?php echo (empty(option::get('quericy_sign_mail_secure')) || option::get('quericy_sign_mail_secure') == 'none') ? 'selected' : ''; ?>>
                                 无
@@ -112,8 +111,7 @@ switch ($_GET['act']) {
                         </select>
                     </div>
                     <br>
-                    <div id="smtp_auth"
-                        <?php echo (empty(option::get('quericy_sign_mail_secure')) || option::get('quericy_sign_mail_secure') == 'none') ? 'style="display:none;"' : ''; ?>>
+                    <div id="smtp_auth">
                         <div class="input-group">
                             <span class="input-group-addon">SMTP用户名</span>
                             <input class="form-control" type="text"
