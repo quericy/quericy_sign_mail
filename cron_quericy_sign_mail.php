@@ -33,10 +33,12 @@ function cron_quericy_sign_mail()
     $global_pattern_arr = array(
         '/\[date\]/',
         '/\[SYSTEM_URL\]/',
+        '/\[SYSTEM_NAME\]/',
     );
     $global_replacement_arr = array(
         date('Y-m-d'),
         SYSTEM_URL,
+        SYSTEM_NAME,
     );
     $quericy_sign_mail_title = preg_replace($global_pattern_arr, $global_replacement_arr, $quericy_sign_mail_title);
     $quericy_sign_mail_content = preg_replace($global_pattern_arr, $global_replacement_arr, $quericy_sign_mail_content);

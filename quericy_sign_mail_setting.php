@@ -130,7 +130,7 @@ switch ($_GET['act']) {
                     <div class="input-group">
                         <span class="input-group-addon">模板变量</span>
                         <input class="form-control" type="text" readonly
-                               value="[link]签到报告url,[date]当前日期,[name]用户名,[SYSTEM_URL]站点url">
+                               value="[link]签到报告url,[date]当前日期,[name]用户名,[SYSTEM_URL]站点url,[SYSTEM_NAME]站点名称">
                     </div>
                     <br>
                     <div class="input-group">
