@@ -8,7 +8,7 @@ Plugin URL: https://github.com/quericy/quericy_sign_mail
 Description: 每日用户签到邮件通知，使用独立的SMTP配置，支持tls,ssl加密，可自定义邮件标题和内容模板，基于D丶L的版本重写
 Author: quericy
 Author Email: cy@quericy.me
-Author URL: https://quericy.me
+Author URL: https://quericy.me/blog/858/
 For: V3.8+
 */
 function quericy_sign_mail_setting()
