@@ -166,7 +166,7 @@ class KMMailer {
 
 		if ($headers != null) { $email .= $headers . $this->newline; }
 
-		$email .= "Subject: $subject" . $this->newline;
+		$email .= "Subject: =?UTF-8?B?" . base64_encode($subject) . "?=" . $this->newline;
 		$email .= "MIME-Version: 1.0" . $this->newline;
 		if($this->contentType == "multipart/mixed") {
 			$boundary = $this->generateBoundary();

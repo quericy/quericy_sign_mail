@@ -63,7 +63,7 @@ function cron_quericy_sign_mail()
     require 'KMMailer.php';
     $KMMailer_obj = new KMMailer($quericy_sign_mail_host, $quericy_sign_mail_port, $quericy_sign_mail_user_name, $quericy_sign_mail_user_password, $quericy_sign_mail_secure);
     $KMMailer_obj->charset = "\"UTF-8\"";
-    $KMMailer_obj->contentType = "multipart/mixed";
+    $KMMailer_obj->contentType = "text/html";
     $mail_from = $quericy_sign_mail_name;
     $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器连接成功 ' . PHP_EOL;
     //run for every user
