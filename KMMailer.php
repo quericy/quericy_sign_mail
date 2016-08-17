@@ -157,9 +157,9 @@ class KMMailer {
 	}
 
 	/* send the email message */
-	public function send($from, $to, $subject, $message, $headers=null) {
+	public function send($from, $to, $subject, $message, $headers = null, $time_zone_str = "-0500"){
 		/* set up the headers and message body with attachments if necessary */
-		$email  = "Date: " . date("D, j M Y G:i:s") . " -0500" . $this->newline;
+		$email = "Date: " . date("D, j M Y G:i:s") . " " . $time_zone_str . $this->newline;
 		$email .= "From: $from" . $this->newline;
 		$email .= "Reply-To: $from" . $this->newline;
 		$email .= $this->setRecipients($to);

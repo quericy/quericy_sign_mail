@@ -63,7 +63,7 @@ function cron_quericy_sign_mail()
     require 'KMMailer.php';
     $KMMailer_obj = new KMMailer($quericy_sign_mail_host, $quericy_sign_mail_port, $quericy_sign_mail_user_name, $quericy_sign_mail_user_password, $quericy_sign_mail_secure);
     $KMMailer_obj->charset = "\"UTF-8\"";
-    $KMMailer_obj->contentType = "text/html";
+    $KMMailer_obj->contentType = "multipart/mixed";
     $mail_from = $quericy_sign_mail_name;
     $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器连接成功 ' . PHP_EOL;
     //run for every user
@@ -101,7 +101,7 @@ function cron_quericy_sign_mail()
         $user_sign_mail_title = preg_replace($user_pattern_arr, $user_replacement_arr, $quericy_sign_mail_title);
         $user_sign_mail_content = preg_replace($user_pattern_arr, $user_replacement_arr, $quericy_sign_mail_content);
         //send mail
-        $res = $KMMailer_obj->send($mail_from, $mail_to, $user_sign_mail_title, $user_sign_mail_content);
+        $res = $KMMailer_obj->send($mail_from, $mail_to, $user_sign_mail_title, $user_sign_mail_content,null,"+0800");
         //check result
         option::set('quericy_sign_mail_run_id', $ii);
         $send_mail_count++;
