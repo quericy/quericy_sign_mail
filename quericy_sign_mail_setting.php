@@ -9,6 +9,31 @@ switch ($_GET['act']) {
     case 'ok'://成功回显
         echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>插件设置成功</div>';
         break;
+    case 'debug'://测试邮件发送回显
+        global $i;
+        $send_mail = $i['user']['email'];
+        $user_name = $i['user']['name'];
+        $user_id = $i['user']['uid'];
+        require 'quericy_notice_mail.class.php';
+        $notice_mail_obj = new quericy_notice_mail();
+        if (!$notice_mail_obj->get_config()) {
+            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>发送失败,请完成设置并保存后再测试!</div>';
+            break;
+        }
+        if (!$notice_mail_obj->connect_notice_server()) {
+            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>发送失败,连接服务器失败!</div>';
+            break;
+        }
+        $notice_url = $notice_mail_obj->get_notice_url($user_name, $user_id);
+        $mail_title = $notice_mail_obj->deal_user_template($notice_mail_obj->get_template_title(), $user_name, $notice_url);
+        $mail_content = $notice_mail_obj->deal_user_template($notice_mail_obj->get_template_content(), $user_name, $notice_url);
+        $res = $notice_mail_obj->send_notice_mail($send_mail, $mail_title, $mail_content);
+        if ($res) {
+            echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>一封测试邮件已经发送到' . $send_mail . ',请注意查收</div>';
+        } else {
+            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>发送给' . $send_mail . '的测试邮件发送失败!</div>';
+        }
+        break;
     case 'store'://保存设置
         option::set('quericy_sign_mail_default_open', $_POST['quericy_sign_mail_default_open']);
         option::set('quericy_sign_mail_send_hour', intval($_POST['quericy_sign_mail_send_hour']));
@@ -153,6 +178,29 @@ switch ($_GET['act']) {
                                   name="quericy_sign_mail_content"
                                   style="height:150px;"><?php echo htmlspecialchars(option::get('quericy_sign_mail_content')) ?></textarea>
                     </div>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td>调试测试</td>
+                <td>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">测试邮箱</span>
+                        <input class="form-control" type="text" disabled value="<?php global $i;
+                        echo $i['user']['email']; ?>">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">友情提示</span>
+                        <input class="form-control" type="text" readonly
+                               value="测试邮件只能发给自己,请先【保存设置】后再点击测试按钮!">
+                    </div>
+                    <br>
+                    <button type="button"
+                            onclick="window.location.href='index.php?mod=admin:setplug&plug=quericy_sign_mail&act=debug'"
+                            class="btn btn-warning">点击测试
+                    </button>
                     <br>
                 </td>
             </tr>
