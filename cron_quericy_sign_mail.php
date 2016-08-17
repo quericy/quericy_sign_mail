@@ -14,43 +14,27 @@ function cron_quericy_sign_mail()
         //no start
         return option::get('quericy_sign_mail_log');
     }
-
     $log = date("Y-m-d H:i:s") . ' 签到邮件通知开始执行 ' . PHP_EOL;
     //get setting
     $last_do_id = option::get('quericy_sign_mail_run_id');
     $quericy_sign_mail_default_open = option::get('quericy_sign_mail_default_open');
-    $quericy_sign_mail_name = option::get('quericy_sign_mail_name');
-    $quericy_sign_mail_host = option::get('quericy_sign_mail_host');
-    $quericy_sign_mail_port = option::get('quericy_sign_mail_port');
-    $quericy_sign_mail_secure = option::get('quericy_sign_mail_secure');
-    $quericy_sign_mail_user_name = option::get('quericy_sign_mail_user_name');
-    $quericy_sign_mail_user_password = option::get('quericy_sign_mail_user_password');
-    $quericy_sign_mail_title = option::get('quericy_sign_mail_title');
-    $quericy_sign_mail_content = option::get('quericy_sign_mail_content');
-    if (empty($quericy_sign_mail_name) || empty($quericy_sign_mail_host) || empty($quericy_sign_mail_port) || empty($quericy_sign_mail_title) || empty($quericy_sign_mail_content)) {
+    //Use lib
+    require 'quericy_notice_mail.class.php';
+    $notice_mail_obj = new quericy_notice_mail();
+    if (!$notice_mail_obj->get_config()) {
         $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器参数必须配置完整,执行已终止! ' . PHP_EOL;
         option::set('quericy_sign_mail_log', $log);
         return $log;
     }
-    $quericy_sign_mail_secure = empty($quericy_sign_mail_secure) ? 'none' : $quericy_sign_mail_secure;
-    $quericy_sign_mail_user_name = empty($quericy_sign_mail_user_name) ? null : $quericy_sign_mail_user_name;
-    $quericy_sign_mail_user_password = empty($quericy_sign_mail_user_password) ? null : $quericy_sign_mail_user_password;
-
-    //check global template
-    $global_pattern_arr = array(
-        '/\[date\]/',
-        '/\[SYSTEM_URL\]/',
-        '/\[SYSTEM_NAME\]/',
-    );
-    $global_replacement_arr = array(
-        date('Y-m-d'),
-        SYSTEM_URL,
-        SYSTEM_NAME,
-    );
-    $quericy_sign_mail_title = preg_replace($global_pattern_arr, $global_replacement_arr, $quericy_sign_mail_title);
-    $quericy_sign_mail_content = preg_replace($global_pattern_arr, $global_replacement_arr, $quericy_sign_mail_content);
-    global $m;
+    //SMTP server
+    if (!$notice_mail_obj->connect_notice_server()) {
+        $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器连接失败! ' . PHP_EOL;
+        option::set('quericy_sign_mail_log', $log);
+        return $log;
+    }
+    $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器连接成功 ' . PHP_EOL;
     //find max user
+    global $m;
     $max = $m->fetch_array($m->query("select max(`id`) as id from `" . DB_NAME . "`.`" . DB_PREFIX . "users`"));
     $max_id = $max['id'];
     //continue unfinished task
@@ -58,14 +42,6 @@ function cron_quericy_sign_mail()
     //counter and log
     $send_mail_count = 0;
     $send_success_count = 0;
-
-    //SMTP server
-    require 'KMMailer.php';
-    $KMMailer_obj = new KMMailer($quericy_sign_mail_host, $quericy_sign_mail_port, $quericy_sign_mail_user_name, $quericy_sign_mail_user_password, $quericy_sign_mail_secure);
-    $KMMailer_obj->charset = "\"UTF-8\"";
-    $KMMailer_obj->contentType = "text/html";
-    $mail_from = $quericy_sign_mail_name;
-    $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器连接成功 ' . PHP_EOL;
     //run for every user
     for ($ii = $last_do_id; $ii <= $max_id; $ii++) {
         $user = $m->fetch_array($m->query('select `id`,`email`,`name` from `' . DB_NAME . '`.`' . DB_PREFIX . 'users` where `id` = ' . $ii));
@@ -85,23 +61,12 @@ function cron_quericy_sign_mail()
             //global and user setting comprehensive check,no send
             continue;
         }
-        //set mail content
-        $mail_to = $user['email'];
-        $url = SYSTEM_URL . 'index.php?pub_plugin=quericy_sign_mail&username=' . $user['name'] . '&token=' . md5(md5($user['name'] . $user['id'] . date('Y-m-d')) . md5($user['id']));
-        //check user template
-        $user_pattern_arr = array(
-            '/\[link\]/',
-            '/\[name\]/',
-        );
-        $user_replacement_arr = array(
-            $url,
-            $user['name'],
-        );
-        preg_replace(array('/\r\n/', '/\n/'), array('<br>', '<br>'), $a);
-        $user_sign_mail_title = preg_replace($user_pattern_arr, $user_replacement_arr, $quericy_sign_mail_title);
-        $user_sign_mail_content = preg_replace($user_pattern_arr, $user_replacement_arr, $quericy_sign_mail_content);
+        //deal user template
+        $notice_url = $notice_mail_obj->get_notice_url($user['name'], $user['id']);
+        $mail_title = $notice_mail_obj->deal_user_template($notice_mail_obj->get_template_title(), $user['name'], $notice_url);
+        $mail_content = $notice_mail_obj->deal_user_template($notice_mail_obj->get_template_content(), $user['name'], $notice_url);
         //send mail
-        $res = $KMMailer_obj->send($mail_from, $mail_to, $user_sign_mail_title, $user_sign_mail_content,null,"+0800");
+        $res = $notice_mail_obj->send_notice_mail($user['email'], $mail_title, $mail_content);
         //check result
         option::set('quericy_sign_mail_run_id', $ii);
         $send_mail_count++;

@@ -3,7 +3,7 @@
 }
 /*
 Plugin Name: 自定义签到邮件通知
-Version: 1.0
+Version: 1.1
 Plugin URL: https://github.com/quericy/quericy_sign_mail
 Description: 每日用户签到邮件通知，使用独立的SMTP配置，支持tls,ssl加密，可自定义邮件标题和内容模板，基于D丶L的版本重写
 Author: quericy
