@@ -22,29 +22,34 @@
 截图说明
 ===
 
-###插件设置：
-插件管理->自定义签到邮件通知->插件设置：（需要管理员权限）
+## 插件设置
+
+### 插件管理->自定义签到邮件通知->插件设置：（需要管理员权限）
 ![如图所示](https://i.imgur.com/duyzD5y.png)
 
-进入设置页面后可配置详细的插件功能:
+### 进入设置页面后可配置详细的插件功能：
 ![如图所示](https://i.imgur.com/8WxEs70.png)
 
-###插件日志：
-计划任务->quericy_sign_mail->查看日志(或点击编辑查看日志)
-![如图所示](http://i.imgur.com/kRxWsBS.png)
+## 插件日志
 
-###用户页面：
-每个用户的个人设置页面：
+### 计划任务->quericy_sign_mail->查看日志(或点击编辑查看日志)
+![如图所示](https://i.imgur.com/kRxWsBS.png)
+
+## 用户页面
+
+### 每个用户的个人设置页面：
 ![如图所示](https://i.imgur.com/CksC6gh.png)
 
-###签到报告：
-发送给用户的邮件报告：
+## 签到报告
+
+### 发送给用户的邮件报告：
 ![如图所示](https://i.imgur.com/AzpaLSd.png)
 
-点击跳转的详细报告：
-![如图所示](http://i.imgur.com/1Dsuslq.png)
+### 点击跳转的详细报告：
+![如图所示](https://i.imgur.com/1Dsuslq.png)
 
 
 问题反馈
 ===
+
 欢迎在Github提交Issues和PR~
