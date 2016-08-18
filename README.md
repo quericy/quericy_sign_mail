@@ -24,7 +24,10 @@
 
 ###插件设置：
 插件管理->自定义签到邮件通知->插件设置：（需要管理员权限）
-![如图所示](https://i.imgur.com/9RV4P61.png)
+![如图所示](https://i.imgur.com/duyzD5y.png)
+
+进入设置页面后可配置详细的插件功能:
+![如图所示](https://i.imgur.com/8WxEs70.png)
 
 ###插件日志：
 计划任务->quericy_sign_mail->查看日志(或点击编辑查看日志)
