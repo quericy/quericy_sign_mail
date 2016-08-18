@@ -18,7 +18,7 @@ switch ($_GET['act']) {
             $send_mail = $i['user']['email'];
             $user_name = $i['user']['name'];
             $user_id = $i['user']['uid'];
-            require 'quericy_notice_mail.class.php';
+            require 'class.quericy_notice_mail.php';
             $notice_mail_obj = new quericy_notice_mail();
             if (!$notice_mail_obj->get_config()) {
                 $return_arr = array('code' => 0, 'msg' => '发送失败,请完成设置并保存后再测试!');

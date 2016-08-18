@@ -19,7 +19,7 @@ function cron_quericy_sign_mail()
     $last_do_id = option::get('quericy_sign_mail_run_id');
     $quericy_sign_mail_default_open = option::get('quericy_sign_mail_default_open');
     //Use lib
-    require 'quericy_notice_mail.class.php';
+    require 'class.quericy_notice_mail.php';
     $notice_mail_obj = new quericy_notice_mail();
     if (!$notice_mail_obj->get_config()) {
         $log .= date("Y-m-d H:i:s") . ' 签到邮件服务器参数必须配置完整,执行已终止! ' . PHP_EOL;
