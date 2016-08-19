@@ -56,7 +56,8 @@ class quericy_notice_mail
         require 'KMMailer.php';
         $KMMailer_obj = new KMMailer($this->conf_arr['mail_host'], $this->conf_arr['mail_port'], $this->conf_arr['mail_user_name'], $this->conf_arr['mail_user_password'], $this->conf_arr['mail_secure']);
         $KMMailer_obj->charset = "\"UTF-8\"";
-        $KMMailer_obj->contentType = "text/html";
+        $KMMailer_obj->contentType = "multipart/mixed";
+        $KMMailer_obj->transferEncodeing = "quoted-printable";
         $this->KMMailer_obj = $KMMailer_obj;
         return true;
     }

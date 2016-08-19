@@ -97,7 +97,7 @@ class KMMailer {
 
 	public $charset = "\"iso-8859-1\""; /* included double quotes on purpose */
 	public $contentType = "multipart/mixed";  /* can be set to: text/plain, text/html, multipart/mixed */
-	public $transferEncodeing = "quoted-printable"; /* or 8-bit  */
+	public $transferEncodeing = "quoted-printable"; /* or base64 or 8-bit  */
 	public $altBody = "";
 	public $isLogin = false;
 	public $recipients = array();
@@ -321,12 +321,26 @@ class KMMailer {
 		$parts .= "--" . $altBoundary . $this->newline;
 		$parts .= "Content-Type: text/plain; charset=$this->charset" . $this->newline;
 		$parts .= "Content-Transfer-Encoding: $this->transferEncodeing" . $this->newline . $this->newline;
-		$parts .= $this->altBody . $this->newline . $this->newline;
+		if($this->transferEncodeing==='base64'){
+			$parts .= base64_encode($this->altBody) . $this->newline . $this->newline;
+		}elseif($this->transferEncodeing==='quoted-printable'){
+			$parts .= quoted_printable_encode($this->altBody) . $this->newline . $this->newline;
+		}else{
+			$parts .= $this->altBody . $this->newline . $this->newline;
+		}
+
 
 		$parts .= "--" . $altBoundary . $this->newline;
 		$parts .= "Content-Type: text/html; charset=$this->charset" . $this->newline;
 		$parts .= "Content-Transfer-Encoding: $this->transferEncodeing" . $this->newline . $this->newline;
-		$parts .= $htmlpart . $this->newline . $this->newline;
+		if($this->transferEncodeing==='base64'){
+			$parts .= base64_encode($htmlpart) . $this->newline . $this->newline;
+		}elseif($this->transferEncodeing==='quoted-printable'){
+			$parts .= quoted_printable_encode($htmlpart) . $this->newline . $this->newline;
+		}else{
+			$parts .= $htmlpart . $this->newline . $this->newline;
+		}
+
 
 		$parts .= "--" . $altBoundary . "--" . $this->newline . $this->newline;
 
