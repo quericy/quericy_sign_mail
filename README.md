@@ -55,3 +55,15 @@
 ===
 
 欢迎在Github提交Issues和PR~
+
+
+致谢
+===
+
+开源库:
+
+[kmmailer](https://github.com/innomatic-libs/kmmailer)
+
+许可
+===
+[GPL V3](https://github.com/quericy/quericy_sign_mail/blob/master/LICENSE)
