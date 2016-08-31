@@ -1,6 +1,10 @@
 # quericy_sign_mail - 自定义每日签到邮件通知扩展
 云签到插件，用于无名智者的[百度贴吧云签到](https://github.com/MoeNetwork/Tieba-Cloud-Sign)平台。每日用户签到邮件通知，使用独立的SMTP服务器配置，支持tls、ssl加密，可自定义邮件标题和内容模板，基于D丶L的版本重写。
 
+最新更新说明及安装方法
+===
+请访问本项目的release页面查看：[https://github.com/quericy/quericy_sign_mail/releases/](https://github.com/quericy/quericy_sign_mail/releases/)
+
 功能概要
 ===
 + 使用独立的SMTP邮件服务器配置，从站内邮件系统配置中分离出来，互不影响，支持TLS和SSL加密方式的邮件服务器，使代发邮件拥有更多选择。
