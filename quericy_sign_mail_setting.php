@@ -61,6 +61,7 @@ switch ($_GET['act']) {
         } else {
             option::set('quericy_sign_mail_user_password', $_POST['quericy_sign_mail_user_password']);
         }
+        option::set('quericy_sign_mail_time_zone', $_POST['quericy_sign_mail_time_zone']);
         option::set('quericy_sign_mail_title', htmlspecialchars_decode($_POST['quericy_sign_mail_title']));
         option::set('quericy_sign_mail_content', htmlspecialchars_decode($_POST['quericy_sign_mail_content']));
         ReDirect(SYSTEM_URL . 'index.php?mod=admin:setplug&plug=quericy_sign_mail&act=ok');
@@ -169,6 +170,13 @@ switch ($_GET['act']) {
                         <input class="form-control" type="password"
                                name="quericy_sign_mail_user_password"
                                value="<?php echo option::get('quericy_sign_mail_user_password') !== '' ? '*********' : ''; ?>">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器时区</span>
+                        <input class="form-control" type="text" placeholder="留空则为默认时区'+0800'(即东8区)"
+                               name="quericy_sign_mail_time_zone"
+                               value="<?php echo option::get('quericy_sign_mail_time_zone') ?>">
                     </div>
                     <br>
                 </div>

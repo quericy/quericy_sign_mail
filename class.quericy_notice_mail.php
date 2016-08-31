@@ -23,6 +23,7 @@ class quericy_notice_mail
         $conf_arr['mail_secure'] = option::get('quericy_sign_mail_secure');
         $conf_arr['mail_user_name'] = option::get('quericy_sign_mail_user_name');
         $conf_arr['mail_user_password'] = option::get('quericy_sign_mail_user_password');
+        $conf_arr['mail_time_zone'] = option::get('quericy_sign_mail_time_zone');
         $conf_arr['mail_title'] = option::get('quericy_sign_mail_title');
         $conf_arr['mail_content'] = option::get('quericy_sign_mail_content');
         //check config
@@ -37,6 +38,7 @@ class quericy_notice_mail
         $conf_arr['mail_secure'] = empty($conf_arr['mail_secure']) ? 'none' : $conf_arr['mail_secure'];
         $conf_arr['mail_user_name'] = empty($conf_arr['mail_user_name']) ? null : $conf_arr['mail_user_name'];
         $conf_arr['mail_user_password'] = empty($conf_arr['mail_user_password']) ? null : $conf_arr['mail_user_password'];
+        $conf_arr['mail_time_zone'] = empty($conf_arr['mail_time_zone']) ? '+0800' : $conf_arr['mail_time_zone'];
         $conf_arr['mail_title'] = $this->deal_public_template($conf_arr['mail_title']);
         $conf_arr['mail_content'] = $this->deal_public_template($conf_arr['mail_content']);
         $this->conf_arr = $conf_arr;
@@ -79,7 +81,7 @@ class quericy_notice_mail
         if (empty($this->KMMailer_obj)) {
             return false;
         }
-        return $this->KMMailer_obj->send($this->conf_arr['mail_name'], $mail_to, $mail_title, $mail_content, null, $this->conf_arr['nick_name'], "+0800");
+        return $this->KMMailer_obj->send($this->conf_arr['mail_name'], $mail_to, $mail_title, $mail_content, null, $this->conf_arr['nick_name'], $this->conf_arr['mail_time_zone']);
     }
 
     /**
