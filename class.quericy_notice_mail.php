@@ -17,6 +17,7 @@ class quericy_notice_mail
             return true;
         }
         $conf_arr['mail_name'] = option::get('quericy_sign_mail_name');
+        $conf_arr['nick_name'] = option::get('quericy_sign_nick_name');
         $conf_arr['mail_host'] = option::get('quericy_sign_mail_host');
         $conf_arr['mail_port'] = option::get('quericy_sign_mail_port');
         $conf_arr['mail_secure'] = option::get('quericy_sign_mail_secure');
@@ -32,6 +33,7 @@ class quericy_notice_mail
             return false;
         }
         //deal config
+        $conf_arr['nick_name'] = empty($conf_arr['nick_name']) ? '贴吧云签到' : $conf_arr['nick_name'];
         $conf_arr['mail_secure'] = empty($conf_arr['mail_secure']) ? 'none' : $conf_arr['mail_secure'];
         $conf_arr['mail_user_name'] = empty($conf_arr['mail_user_name']) ? null : $conf_arr['mail_user_name'];
         $conf_arr['mail_user_password'] = empty($conf_arr['mail_user_password']) ? null : $conf_arr['mail_user_password'];
@@ -77,7 +79,7 @@ class quericy_notice_mail
         if (empty($this->KMMailer_obj)) {
             return false;
         }
-        return $this->KMMailer_obj->send($this->conf_arr['mail_name'], $mail_to, $mail_title, $mail_content, null, "+0800");
+        return $this->KMMailer_obj->send($this->conf_arr['mail_name'], $mail_to, $mail_title, $mail_content, null, $this->conf_arr['nick_name'], "+0800");
     }
 
     /**

@@ -11,6 +11,7 @@ function callback_init()
     option::add('quericy_sign_mail_default_open', 1);
     option::add('quericy_sign_mail_send_hour', 1);
     option::add('quericy_sign_mail_name', '');
+    option::add('quericy_sign_nick_name', '');
     option::add('quericy_sign_mail_host', '');
     option::add('quericy_sign_mail_port', '');
     option::add('quericy_sign_mail_secure', 'tls');
@@ -40,6 +41,7 @@ function callback_remove()
     option::del('quericy_sign_mail_default_open');
     option::del('quericy_sign_mail_send_hour');
     option::del('quericy_sign_mail_name');
+    option::del('quericy_sign_nick_name');
     option::del('quericy_sign_mail_host');
     option::del('quericy_sign_mail_port');
     option::del('quericy_sign_mail_secure');

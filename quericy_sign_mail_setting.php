@@ -50,6 +50,7 @@ switch ($_GET['act']) {
         option::set('quericy_sign_mail_default_open', $_POST['quericy_sign_mail_default_open']);
         option::set('quericy_sign_mail_send_hour', intval($_POST['quericy_sign_mail_send_hour']));
         option::set('quericy_sign_mail_name', $_POST['quericy_sign_mail_name']);
+        option::set('quericy_sign_nick_name', $_POST['quericy_sign_nick_name']);
         option::set('quericy_sign_mail_host', $_POST['quericy_sign_mail_host']);
         option::set('quericy_sign_mail_port', $_POST['quericy_sign_mail_port']);
         option::set('quericy_sign_mail_secure', $_POST['quericy_sign_mail_secure']);
@@ -116,6 +117,13 @@ switch ($_GET['act']) {
                     <input class="form-control" type="email" placeholder="发件人邮箱地址"
                            name="quericy_sign_mail_name"
                            value="<?php echo option::get('quericy_sign_mail_name') ?>">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">发件人昵称</span>
+                    <input class="form-control" type="text" placeholder="留空则为默认昵称'贴吧云签到'"
+                           name="quericy_sign_nick_name"
+                           value="<?php echo option::get('quericy_sign_nick_name') ?>">
                 </div>
                 <br>
                 <div class="input-group">
