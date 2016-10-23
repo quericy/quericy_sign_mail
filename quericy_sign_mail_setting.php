@@ -145,7 +145,10 @@ switch ($_GET['act']) {
                     <span class="input-group-addon">加密方式</span>
                     <select name="quericy_sign_mail_secure" class="form-control">
                         <option value="none"
-                            <?php echo (empty(option::get('quericy_sign_mail_secure')) || option::get('quericy_sign_mail_secure') == 'none') ? 'selected' : ''; ?>>
+                            <?php
+                            $quericy_sign_mail_secure = option::get('quericy_sign_mail_secure');
+                            echo (empty($quericy_sign_mail_secure) || $quericy_sign_mail_secure == 'none') ? 'selected' : '';
+                            ?>>
                             无
                         </option>
                         <option value="tls"
