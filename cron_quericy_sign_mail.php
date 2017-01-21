@@ -59,6 +59,7 @@ function cron_quericy_sign_mail()
         }
         if ($is_open == false) {
             //global and user setting comprehensive check,no send
+            option::set('quericy_sign_mail_run_id', $ii);
             continue;
         }
         //deal user template
@@ -76,9 +77,8 @@ function cron_quericy_sign_mail()
     }
 
     //complete,reset counter
-    if (option::get('quericy_sign_mail_run_id') >= $max_id) {
-        option::set('quericy_sign_mail_run_id', 0);
-    }
+    option::set('quericy_sign_mail_run_id', 0);
+
     option::set('quericy_sign_mail_last_date', date('Y-m-d'));
     $log .= date("Y-m-d H:i:s") . " 签到邮件通知执行结束,共计发送邮件:" . $send_mail_count . "封,发送成功" . $send_success_count . "封 " . PHP_EOL;
     option::set('quericy_sign_mail_log', $log);
